@@ -1,6 +1,6 @@
 import time
 from matplotlib import pyplot as plt
-plt.rcParams['agg.path.chunksize'] = 100000
+
 x_coorinates1 = []
 y_coorinates1 = []
 x_coorinates2 = []
@@ -65,58 +65,25 @@ def YMXC(x1, y1, x2, y2):
             x_coorinates1.append(x)
             y_coorinates1.append(y)
 
-import random
 
-
-def generate_lines(n):
-    min_val = 0
-    max_val = 1000000
-    min_diff = 50000
-    lines = []
-
-    while len(lines) < n:
-        x1 = random.randint(min_val, max_val)
-        y1 = random.randint(min_val, max_val)
-        x2 = random.randint(min_val, max_val)
-        y2 = random.randint(min_val, max_val)
-
-        dx = abs(x2 - x1)
-        dy = abs(y2 - y1)
-
-
-
-        if dx >= min_diff and dy >= min_diff:
-            lines.append((x1, y1, x2, y2))
-
-
-    return lines
-
+# --- MAIN EXECUTION WITH DYNAMIC TITLE TIMING ---
 if __name__ == "__main__":
-
+    x1 = 50
+    y1 = 860
+    x2 = 850
+    y2 = 70
 
     # Measure execution times
-    n=100
-    lines = generate_lines(n)
-    time1=0
-    time2=0
-    time3=0
-
     st1 = time.perf_counter()
-    for line in lines:
-        YMXC(line[0], line[1], line[2], line[3])
-
+    YMXC(x1, y1, x2, y2)
     en1 = time.perf_counter()
 
     st2 = time.perf_counter()
-    for line in lines:
-        DDA(line[0], line[1], line[2], line[3])
-
+    DDA(x1, y1, x2, y2)
     en2 = time.perf_counter()
 
     st3 = time.perf_counter()
-    for line in lines:
-        DDA2(line[0], line[1], line[2], line[3])
-
+    DDA2(x1, y1, x2, y2)
     en3 = time.perf_counter()
 
     time1 = 1000 * (en1 - st1)
@@ -127,7 +94,7 @@ if __name__ == "__main__":
     print(f"Line 2: DDA Method\nTime: {time2:.4f} ms")
     print(f"Line 3: DDA Integer Method\nTime: {time3:.4f} ms")
 
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(12, 4))
 
     # Display plot 1 with timing
     ax1.plot(
@@ -135,9 +102,9 @@ if __name__ == "__main__":
         y_coorinates1,
         marker="o",
         markersize=1,
-        markerfacecolor="red",
+        markerfacecolor="green",
     )
-    ax1.set_title(f"Line 1: y=mx+c Method\nTime: {time1:.4f} ms \n Total Lines: {len(lines)}")
+    ax1.set_title(f"Line 1: y=mx+c Method\nTime: {time1:.4f} ms")
 
     # Display plot 2 with timing
     ax2.plot(
@@ -145,9 +112,9 @@ if __name__ == "__main__":
         y_coorinates2,
         marker="o",
         markersize=1,
-        markerfacecolor="yellow",
+        markerfacecolor="green",
     )
-    ax2.set_title(f"Line 2: DDA Method\nTime: {time2:.4f} ms\n Total Lines: {len(lines)}")
+    ax2.set_title(f"Line 2: DDA Method\nTime: {time2:.4f} ms")
 
     # Display plot 3 with timing
     ax3.plot(
@@ -155,9 +122,9 @@ if __name__ == "__main__":
         y_coorinates3,
         marker="o",
         markersize=1,
-        markerfacecolor="black",
+        markerfacecolor="green",
     )
-    ax3.set_title(f"Line 3: DDA Integer Method\nTime: {time3:.4f} ms\n Total Lines: {len(lines)}")
+    ax3.set_title(f"Line 3: DDA Integer Method\nTime: {time3:.4f} ms")
 
     plt.tight_layout()
     plt.show()
