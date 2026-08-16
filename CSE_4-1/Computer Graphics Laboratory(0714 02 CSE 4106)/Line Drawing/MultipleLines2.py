@@ -33,8 +33,8 @@ def DDA2(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
     steps = max(abs(dx), abs(dy))
-    x_inc = int(dx / steps)
-    y_inc = int(dy / steps)
+    x_inc = dx // steps
+    y_inc = dy // steps
     x = float(x1)
     y = float(y1)
     for i in range(steps):

@@ -9,43 +9,70 @@ x_coorinates3 = []
 y_coorinates3 = []
 
 
-# --- YOUR ORIGINAL FUNCTIONS (UNTOUCHED) ---
+
 def DDA(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
 
-    steps = max(abs(dx), abs(dy))
 
-    x_inc = dx / steps
-    y_inc = dy / steps
 
+    x_inc = dx / abs(dy)
+    y_inc = dy / abs(dx)
     x = float(x1)
     y = float(y1)
 
-    for i in range(steps):
-        x_coorinates2.append(x)
-        y_coorinates2.append(y)
-        x = x + x_inc
-        y = y + y_inc
-
+    if x_inc >= 1:
+        for x in range(x1, x2 + 1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            y = y + y_inc
+    elif x_inc >= -1:
+        for x in range(x1, x2 - 1, -1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            y = y + y_inc
+    elif y_inc >= -1:
+        for y in range(y1, y2 - 1,-1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            x = x + x_inc
+    elif y_inc >= 1:
+        for y in range(y1, y2 + 1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            x = x + x_inc
 
 def DDA2(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
 
-    steps = max(abs(dx), abs(dy))
 
-    x_inc = int(dx / steps)
-    y_inc = int(dy / steps)
 
-    x = float(x1)
-    y = float(y1)
+    x_inc = int(dx / abs(dy))
+    y_inc = int(dy / abs(dx))
 
-    for i in range(steps):
-        x_coorinates3.append(x)
-        y_coorinates3.append(y)
-        x = x + x_inc
-        y = y + y_inc
+    x=x1
+    y=y1
+    if x_inc == 1:
+        for x in range(x1, x2 + 1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
+
+    elif x_inc == -1:
+        for x in range(x1,x2-1,-1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
+
+    elif y_inc==-1:
+        for y in range(y1, y2 - 1,-1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
+
+    elif y_inc==1:
+        for y in range(y1, y2 + 1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
+
 
 
 def YMXC(x1, y1, x2, y2):
@@ -55,23 +82,33 @@ def YMXC(x1, y1, x2, y2):
     m = dy / dx
     c = y1 - m * x1
     if(abs(dx)>abs(dy)):
-        for x in range(min(x1,x2), max(x2,x1) + 1):
-            y = m * x + c
-            x_coorinates1.append(x)
-            y_coorinates1.append(y)
+        if dx >= 0:
+            for x in range(x1,x2+1):
+                y = m * x + c
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
+        else :
+            for x in range(x1,x2-1,-1):
+                y = m * x + c
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
     else:
-        for y in range(min(y1,y2), max(y2,y1) + 1):
-            x = (y-c)/m
-            x_coorinates1.append(x)
-            y_coorinates1.append(y)
+        if dy>=0:
+            for y in range(y1, y2 + 1):
+                x = (y-c)/m
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
+        else:
+            for y in range(y1,y2-1,-1):
+                x=(y-c)/m
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
 
-
-# --- MAIN EXECUTION WITH DYNAMIC TITLE TIMING ---
 if __name__ == "__main__":
-    x1 = 50
-    y1 = 860
-    x2 = 850
-    y2 = 70
+    x1 = 850
+    y1 = 50
+    x2 = 50
+    y2 = 900
 
     # Measure execution times
     st1 = time.perf_counter()

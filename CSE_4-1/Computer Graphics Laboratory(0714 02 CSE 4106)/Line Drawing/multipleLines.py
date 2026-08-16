@@ -1,5 +1,6 @@
 import time
 from matplotlib import pyplot as plt
+import random
 plt.rcParams['agg.path.chunksize'] = 100000
 x_coorinates1 = []
 y_coorinates1 = []
@@ -9,43 +10,66 @@ x_coorinates3 = []
 y_coorinates3 = []
 
 
-# --- YOUR ORIGINAL FUNCTIONS (UNTOUCHED) ---
 def DDA(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
 
-    steps = max(abs(dx), abs(dy))
-
-    x_inc = dx / steps
-    y_inc = dy / steps
-
+    x_inc = dx / abs(dy)
+    y_inc = dy / abs(dx)
     x = float(x1)
     y = float(y1)
 
-    for i in range(steps):
-        x_coorinates2.append(x)
-        y_coorinates2.append(y)
-        x = x + x_inc
-        y = y + y_inc
+    if x_inc >= 1:
+        for x in range(x1, x2 + 1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            y = y + y_inc
+    elif x_inc >= -1:
+        for x in range(x1, x2 - 1, -1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            y = y + y_inc
+    elif y_inc >= -1:
+        for y in range(y1, y2 - 1, -1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            x = x + x_inc
+    elif y_inc >= 1:
+        for y in range(y1, y2 + 1):
+            x_coorinates2.append(x)
+            y_coorinates2.append(y)
+            x = x + x_inc
 
 
 def DDA2(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
 
-    steps = max(abs(dx), abs(dy))
+    x_inc = int(dx / abs(dy))
+    y_inc = int(dy / abs(dx))
 
-    x_inc = int(dx / steps)
-    y_inc = int(dy / steps)
+    x = x1
+    y = y1
+    print(x_inc, y_inc)
+    if x_inc == 1:
+        for x in range(x1, x2 + 1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
 
-    x = float(x1)
-    y = float(y1)
+    elif x_inc == -1:
+        for x in range(x1, x2 - 1, -1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
 
-    for i in range(steps):
-        x_coorinates3.append(x)
-        y_coorinates3.append(y)
-        x = x + x_inc
-        y = y + y_inc
+    elif y_inc == -1:
+        for y in range(y1, y2 - 1, -1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
+
+    elif y_inc == 1:
+        for y in range(y1, y2 + 1):
+            x_coorinates3.append(x)
+            y_coorinates3.append(y)
 
 
 def YMXC(x1, y1, x2, y2):
@@ -54,24 +78,35 @@ def YMXC(x1, y1, x2, y2):
 
     m = dy / dx
     c = y1 - m * x1
-    if(abs(dx)>abs(dy)):
-        for x in range(min(x1,x2), max(x2,x1) + 1):
-            y = m * x + c
-            x_coorinates1.append(x)
-            y_coorinates1.append(y)
+    if (abs(dx) > abs(dy)):
+        if dx >= 0:
+            for x in range(x1, x2 + 1):
+                y = m * x + c
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
+        else:
+            for x in range(x1, x2 - 1, -1):
+                y = m * x + c
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
     else:
-        for y in range(min(y1,y2), max(y2,y1) + 1):
-            x = (y-c)/m
-            x_coorinates1.append(x)
-            y_coorinates1.append(y)
+        if dy >= 0:
+            for y in range(y1, y2 + 1):
+                x = (y - c) / m
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
+        else:
+            for y in range(y1, y2 - 1, -1):
+                x = (y - c) / m
+                x_coorinates1.append(x)
+                y_coorinates1.append(y)
 
-import random
 
 
 def generate_lines(n):
     min_val = 0
-    max_val = 1000000
-    min_diff = 50000
+    max_val = 1000
+    min_diff = 500
     lines = []
 
     while len(lines) < n:
@@ -94,22 +129,21 @@ def generate_lines(n):
 if __name__ == "__main__":
 
 
-    # Measure execution times
-    n=100
+    n=2
     lines = generate_lines(n)
     time1=0
     time2=0
     time3=0
 
     st1 = time.perf_counter()
-    for line in lines:
-        YMXC(line[0], line[1], line[2], line[3])
+    # for line in lines:
+    #     YMXC(line[0], line[1], line[2], line[3])
 
     en1 = time.perf_counter()
 
     st2 = time.perf_counter()
-    for line in lines:
-        DDA(line[0], line[1], line[2], line[3])
+    # for line in lines:
+    #     DDA(line[0], line[1], line[2], line[3])
 
     en2 = time.perf_counter()
 
@@ -135,7 +169,7 @@ if __name__ == "__main__":
         y_coorinates1,
         marker="o",
         markersize=1,
-        markerfacecolor="red",
+        markerfacecolor="green",
     )
     ax1.set_title(f"Line 1: y=mx+c Method\nTime: {time1:.4f} ms \n Total Lines: {len(lines)}")
 
@@ -145,7 +179,7 @@ if __name__ == "__main__":
         y_coorinates2,
         marker="o",
         markersize=1,
-        markerfacecolor="yellow",
+        markerfacecolor="green",
     )
     ax2.set_title(f"Line 2: DDA Method\nTime: {time2:.4f} ms\n Total Lines: {len(lines)}")
 
@@ -155,7 +189,7 @@ if __name__ == "__main__":
         y_coorinates3,
         marker="o",
         markersize=1,
-        markerfacecolor="black",
+        markerfacecolor="green",
     )
     ax3.set_title(f"Line 3: DDA Integer Method\nTime: {time3:.4f} ms\n Total Lines: {len(lines)}")
 
