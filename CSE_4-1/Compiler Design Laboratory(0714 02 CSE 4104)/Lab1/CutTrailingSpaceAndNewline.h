@@ -39,6 +39,14 @@ void removeComments(string &source_program)
                 if (source_program[i] == '\n')
                     break;
         }
+        else if (flag && pre_character == '/' && character == '*')
+        {
+            clean_source_program.pop_back();
+
+            for (i=i+2; i < source_program.size(); i++)
+                if (source_program[i] == '/'&&source_program[i-1]=='*')
+                    break;
+        }
         else
             clean_source_program += character;
         if (character == '\\')
@@ -101,7 +109,7 @@ void removeSpaceNewline(string &source_program)
             {
                 continue;
             }
-            else if (character == ';' || character == ')' || character == '}' || character == '(' || character == '{')
+            else if (character == ';' || character == ')' || character == '}' || character == '(' || character == '{'||character==',')
             {
                 flag = true;
             }
@@ -148,7 +156,7 @@ void removeSpaceNewline(string &source_program)
                         flag2 = !flag2;
                 }
             }
-            if (flag2 && (character == ';' || character == ')' || character == '}' || character == '(' || character == '{'))
+            if (flag2 && (character == ';' || character == ')' || character == '}' || character == '(' || character == '{'||character==',')||character==' ')
             {
                 flag = true;
             }

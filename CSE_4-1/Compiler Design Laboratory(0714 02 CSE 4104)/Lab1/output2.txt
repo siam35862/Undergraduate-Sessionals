@@ -1,0 +1,14 @@
+Symbol Table
+Symbol No:      Symbol:          Type:
+1                void            Keyword
+2                 main              Identifier
+3                int            Keyword
+4                 i              Identifier
+5                 j              Identifier
+6                 5              Immediate Value
+7                 k              Identifier
+8                 10              Immediate Value
+9                 printf              Identifier
+Invalid Identifiers:
+sia&m
+2siam

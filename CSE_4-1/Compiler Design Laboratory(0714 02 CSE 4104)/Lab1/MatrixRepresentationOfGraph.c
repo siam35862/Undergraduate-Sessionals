@@ -26,6 +26,9 @@ int x = 10;
 
 
 int main() {
-    printf("Result: %d\n", MACRO_TEST(1, 2));
+   
+    int i=5,
+    j=10;
+    printf("Result: %d\n\\", MACRO_TEST(1, 2));
     return 0;
 }

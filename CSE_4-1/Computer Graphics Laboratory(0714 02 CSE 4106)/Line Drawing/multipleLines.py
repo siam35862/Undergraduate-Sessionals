@@ -1,6 +1,8 @@
 import time
 from matplotlib import pyplot as plt
 import random
+
+
 plt.rcParams['agg.path.chunksize'] = 100000
 x_coorinates1 = []
 y_coorinates1 = []
@@ -10,9 +12,12 @@ x_coorinates3 = []
 y_coorinates3 = []
 
 
+
 def DDA(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
+
+
 
     x_inc = dx / abs(dy)
     y_inc = dy / abs(dx)
@@ -30,7 +35,7 @@ def DDA(x1, y1, x2, y2):
             y_coorinates2.append(y)
             y = y + y_inc
     elif y_inc >= -1:
-        for y in range(y1, y2 - 1, -1):
+        for y in range(y1, y2 - 1,-1):
             x_coorinates2.append(x)
             y_coorinates2.append(y)
             x = x + x_inc
@@ -40,36 +45,41 @@ def DDA(x1, y1, x2, y2):
             y_coorinates2.append(y)
             x = x + x_inc
 
-
 def DDA2(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
 
+
+
     x_inc = int(dx / abs(dy))
     y_inc = int(dy / abs(dx))
 
-    x = x1
-    y = y1
-    print(x_inc, y_inc)
+    x=x1
+    y=y1
     if x_inc == 1:
         for x in range(x1, x2 + 1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            y+=y_inc
 
     elif x_inc == -1:
-        for x in range(x1, x2 - 1, -1):
+        for x in range(x1,x2-1,-1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            y += y_inc
 
-    elif y_inc == -1:
-        for y in range(y1, y2 - 1, -1):
+    elif y_inc==-1:
+        for y in range(y1, y2 - 1,-1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            x = x + x_inc
 
-    elif y_inc == 1:
+    elif y_inc==1:
         for y in range(y1, y2 + 1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            x = x + x_inc
+
 
 
 def YMXC(x1, y1, x2, y2):
@@ -78,29 +88,28 @@ def YMXC(x1, y1, x2, y2):
 
     m = dy / dx
     c = y1 - m * x1
-    if (abs(dx) > abs(dy)):
+    if(abs(dx)>abs(dy)):
         if dx >= 0:
-            for x in range(x1, x2 + 1):
+            for x in range(x1,x2+1):
                 y = m * x + c
                 x_coorinates1.append(x)
                 y_coorinates1.append(y)
-        else:
-            for x in range(x1, x2 - 1, -1):
+        else :
+            for x in range(x1,x2-1,-1):
                 y = m * x + c
                 x_coorinates1.append(x)
                 y_coorinates1.append(y)
     else:
-        if dy >= 0:
+        if dy>=0:
             for y in range(y1, y2 + 1):
-                x = (y - c) / m
+                x = (y-c)/m
                 x_coorinates1.append(x)
                 y_coorinates1.append(y)
         else:
-            for y in range(y1, y2 - 1, -1):
-                x = (y - c) / m
+            for y in range(y1,y2-1,-1):
+                x=(y-c)/m
                 x_coorinates1.append(x)
                 y_coorinates1.append(y)
-
 
 
 def generate_lines(n):
@@ -129,21 +138,21 @@ def generate_lines(n):
 if __name__ == "__main__":
 
 
-    n=2
+    n=50000
     lines = generate_lines(n)
     time1=0
     time2=0
     time3=0
 
     st1 = time.perf_counter()
-    # for line in lines:
-    #     YMXC(line[0], line[1], line[2], line[3])
+    for line in lines:
+        YMXC(line[0], line[1], line[2], line[3])
 
     en1 = time.perf_counter()
 
     st2 = time.perf_counter()
-    # for line in lines:
-    #     DDA(line[0], line[1], line[2], line[3])
+    for line in lines:
+        DDA(line[0], line[1], line[2], line[3])
 
     en2 = time.perf_counter()
 

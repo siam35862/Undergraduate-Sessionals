@@ -4,7 +4,7 @@ from time import perf_counter
 from single_line_seam import basic_equation, dda, dropout_cutoff
 
 n = 600
-k = 50
+k = 50000
 img1 = np.zeros((n, n), dtype=np.uint8)
 img2 = np.zeros((n, n), dtype=np.uint8)
 img3 = np.zeros((n, n), dtype=np.uint8)
@@ -22,11 +22,14 @@ for x1, y1, x2, y2 in lines:
 
 end2 = perf_counter()
 
+start3 = perf_counter()
 for x1, y1, x2, y2 in lines:
     dropout_cutoff(x1, y1, x2, y2, img3)
+end3 = perf_counter()
 
 print(f"Basic Equation took {end1 - start1 : 0.6f}s")
 print(f"DDA took {end2 - start2 : 0.6f}s")
+print(f"Cutting off took {end3 - start3 : 0.6f}s")
 
 cv2.imshow("Basic equation: y = mx + c", img1)
 cv2.imshow("DDA: Ynext = Ycurr + m", img2)

@@ -57,21 +57,25 @@ def DDA2(x1, y1, x2, y2):
         for x in range(x1, x2 + 1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            y+=y_inc
 
     elif x_inc == -1:
         for x in range(x1,x2-1,-1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            y += y_inc
 
     elif y_inc==-1:
         for y in range(y1, y2 - 1,-1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            x = x + x_inc
 
     elif y_inc==1:
         for y in range(y1, y2 + 1):
             x_coorinates3.append(x)
             y_coorinates3.append(y)
+            x = x + x_inc
 
 
 
@@ -105,9 +109,9 @@ def YMXC(x1, y1, x2, y2):
                 y_coorinates1.append(y)
 
 if __name__ == "__main__":
-    x1 = 850
+    x1 = 50
     y1 = 50
-    x2 = 50
+    x2 = 900
     y2 = 900
 
     # Measure execution times

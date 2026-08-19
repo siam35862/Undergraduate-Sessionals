@@ -1,0 +1,1 @@
+void main(){int i,j=5,k=10;i=j+k;int sia&m;int 2siam;printf("%d",i);}
