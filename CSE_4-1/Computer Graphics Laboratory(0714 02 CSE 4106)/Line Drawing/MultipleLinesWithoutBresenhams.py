@@ -9,30 +9,32 @@ g = 0, 255, 0
 b = 255, 0, 0
 
 
+
 def YMXC(x1, y1, x2, y2):
     dx = x2 - x1
     dy = y2 - y1
 
     m = dy / dx
     c = y1 - m * x1
-    if (abs(dx) > abs(dy)):
+    if(abs(dx)>abs(dy)):
         if dx >= 0:
-            for x in range(x1, x2 + 1):
+            for x in range(x1,x2+1):
                 y = m * x + c
-                line[int(y)][int(x)] = b
-        else:
-            for x in range(x1, x2 - 1, -1):
+                line[round(y)][round(x)]=b
+        else :
+            for x in range(x1,x2-1,-1):
                 y = m * x + c
-                line[int(y)][int(x)] = b
+                line[round(y)][round(x)]=b
     else:
-        if dy >= 0:
+        if dy>=0:
             for y in range(y1, y2 + 1):
-                x = (y - c) / m
-                line[int(y)][int(x)] = b
+                x = (y-c)/m
+                line[round(y)][round(x)]=b
         else:
-            for y in range(y1, y2 - 1, -1):
-                x = (y - c) / m
-                line[int(y)][int(x)] = b
+            for y in range(y1,y2-1,-1):
+                x=(y-c)/m
+                line[round(y)][round(x)]=b
+
 
 
 def DDA(x1, y1, x2, y2):
@@ -46,19 +48,19 @@ def DDA(x1, y1, x2, y2):
 
     if x_inc >= 1.0:
         for x in range(x1, x2 + 1):
-            line[int(y)][int(x)] = r
+            line[round(y)][round(x)] = r
             y = y + y_inc
     elif x_inc <= -1.0:
         for x in range(x1, x2 - 1, -1):
-            line[int(y)][int(x)] = r
+            line[round(y)][round(x)] = r
             y = y + y_inc
     elif y_inc <= -1.0:
         for y in range(y1, y2 - 1, -1):
-            line[int(y)][int(x)] = r
+            line[round(y)][round(x)] = r
             x = x + x_inc
     elif y_inc >= 1.0:
         for y in range(y1, y2 + 1):
-            line[int(y)][int(x)] = r
+            line[round(y)][round(x)] = r
             x = x + x_inc
 
 
