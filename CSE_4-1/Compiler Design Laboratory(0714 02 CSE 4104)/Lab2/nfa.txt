@@ -1,7 +1,7 @@
 Regular Expression: a.(a|b)*.c+.d?.e
 Postfix Expression: aab|*.c+.d?.e.
 
-NFA Graph
+NFA Graph/Table
 Start: 0, Final: 19
     a    b    c    d    e    ~
 0   1,   -    -    -    -    -    

@@ -35,7 +35,7 @@ int main()
 
     NFA nfa = postfix_expression_to_nfa(postfix_expression);
     file2 << endl;
-    file2 << "NFA Graph\n";
+    file2 << "NFA Graph/Table\n";
     file2 << "Start: " << nfa.start << ", Final: " << nfa.end << endl;
     set<char> st;
     for (auto it : postfix_expression)
