@@ -1,16 +1,14 @@
 import time
 import cv2
 import numpy as np
-n=800
-m=800
-circle = np.zeros((n+1, m+1, 3), dtype=np.uint8)
+
 
 r = 0, 0, 255
 g = 0, 255, 0
 b = 255, 0, 0
 def round(x):
     return int(x+.5)
-def draw_symmetric_points(h, k, x, y,color):
+def draw_symmetric_points(h, k, x, y,color,circle,n,m):
     points = [
         (h + x, k + y),
         (h - x, k + y),
@@ -25,24 +23,24 @@ def draw_symmetric_points(h, k, x, y,color):
     for px, py in points:
         if 0 <= py < m and 0 <= px < n:
             circle[m-py][px] = color
-def directMethod(h, k, radius):
+def directMethod(h, k, radius,circle,n,m):
     x=0
     y=radius
     while x <= y:
-        draw_symmetric_points(h, k, x, round(y), b)
+        draw_symmetric_points(h, k, x, round(y), b,circle,n,m)
         x += 1
         y=np.sqrt(abs(radius**2-x**2))
         # print(x,y)
 
 
-def bresenhamsCircle(h, k, radius):
+def bresenhamsCircle(h, k, radius,circle,n,m):
 
     x = 0
     y = radius
     d = 3 - 2 * radius
 
     while x <= y:
-        draw_symmetric_points(h, k, x, y, g)
+        draw_symmetric_points(h, k, x, y, g,circle,n,m)
         if d < 0:
             d = d + (x<<2) + 6
         else:
@@ -52,12 +50,12 @@ def bresenhamsCircle(h, k, radius):
 
        
 
-def midPointCircle(h, k, radius):
+def midPointCircle(h, k, radius,circle,n,m):
     x=0
     y=radius
     p=1-radius
     while x <= y:
-        draw_symmetric_points(h, k, x, y, r)
+        draw_symmetric_points(h, k, x, y, r,circle,n,m)
         if p<0:
             p=p+(x<<1)+3
         else:
@@ -74,18 +72,20 @@ if __name__ == "__main__":
     h=400
     k=400
     radius=300
-
+    n = 800
+    m = 800
+    circle = np.zeros((n + 1, m + 1, 3), dtype=np.uint8)
     st1 = time.perf_counter()
-    directMethod(h, k, radius)
+    directMethod(h, k, radius,circle,n,m)
     en1 = time.perf_counter()
 
     st2 = time.perf_counter()
-    bresenhamsCircle(h,k,radius)
+    bresenhamsCircle(h,k,radius,circle,n,m)
 
     en2 = time.perf_counter()
 
     st3 = time.perf_counter()
-    midPointCircle(h, k, radius)
+    midPointCircle(h, k, radius,circle,n,m)
 
     en3 = time.perf_counter()
 
